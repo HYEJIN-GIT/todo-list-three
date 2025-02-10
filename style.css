@@ -1,0 +1,14 @@
+body{
+    margin: 0;
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJOIZSuoL9ADQPeac9zNkCLxJwCu0KzMPiMg&s');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container{
+    padding: 1rem;
+    background-color: rgb(247, 235, 247);
+    border-radius: 10px;
+    min-height: 100vh;
+   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
