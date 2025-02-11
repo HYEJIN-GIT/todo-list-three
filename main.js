@@ -4,9 +4,12 @@
 let taskInput = document.getElementById("task-input")
 let plusBtn = document.getElementById("plus")
 let taskList = []
+let tabs = document.querySelectorAll(".tabs div")
+let tabsLine = document.getElementById("under-bar")
 
 
 plusBtn.addEventListener("click",check)
+tabs.forEach(menu=> menu.addEventListener("click",(e=>tabsLineEvent(e))))
 
 
 function check(){
@@ -31,7 +34,7 @@ function render(){
          <div class = "check-line">${taskList[i].taskValue}</div>
          <div>
              <button onclick = "checkBtn('${taskList[i].id}')">CHECK</button>
-             <button>DELETE</button>
+             <button  onclick = "deleteBtn('${taskList[i].id}')">DELETE</button>
          </div>
      </div>`
         }else{
@@ -39,7 +42,7 @@ function render(){
          <div>${taskList[i].taskValue}</div>
          <div>
              <button onclick = "checkBtn('${taskList[i].id}')">CHECK</button>
-             <button>DELETE</button>
+             <button onclick = "deleteBtn('${taskList[i].id}')">DELETE</button>
          </div>
      </div>`
         }
@@ -60,6 +63,23 @@ function checkBtn(id){
         }
     }
     render()
+}
+
+function deleteBtn(id){
+    for(let i=0;i<taskList.length;i++){
+        if(taskList[i].id == id){
+           taskList.splice(i,1) // 제거할 대상 정하는 것 제발 잊지마!
+            break;
+        }
+    }
+    render()
+}
+
+function tabsLineEvent(e) {
+    tabsLine.style.left =  e.currentTarget.offsetLeft + "px";
+    tabsLine.style.width = e.currentTarget.offsetWidth + "px";
+    tabsLine.style.top =  e.currentTarget.offsetTop + e.currentTarget.offsetHeight + "px";
+
 }
 
 function generateId(){
