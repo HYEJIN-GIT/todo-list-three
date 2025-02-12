@@ -134,8 +134,10 @@ let taskList = []
 let mode = "all"
 let filterList = []
 let tabs = document.querySelectorAll(".tabs div")
+let underBar = document.getElementById("under-bar")
 
 plusBtn.addEventListener("click",plusCheck)
+tabs.forEach(menu=> menu.addEventListener("click",(e=>tabsLineEvent(e))))
 
 for(let i=1;i<tabs.length;i++){
     tabs[i].addEventListener("click",function (event){filter(event)})
@@ -155,22 +157,34 @@ function plusCheck(){
 
 
 function render(){
+    let allList = []
+    if(mode == "all"){
+        allList = taskList
+    }else if(mode == "done"){
+        allList = filterList
+    }else if(mode == "not-done"){
+        allList = filterList
+    }
+
+
+
+
     let resultHTML = "";
- for(let i=0;i<taskList.length;i++){
-   if(taskList[i].isComplete == true){
+ for(let i=0;i<allList.length;i++){
+   if(allList[i].isComplete == true){
     resultHTML+= `<div class="tasks">
-    <div class = "check-line">${taskList[i].taskValue}</div>
+    <div class = "check-line">${allList[i].taskValue}</div>
     <div>
-        <button onclick = "checkBtn('${taskList[i].id}')">check</button>
-        <button onclick = "deleteBtn('${taskList[i].id}')">delete</button>
+        <button onclick = "checkBtn('${allList[i].id}')">check</button>
+        <button onclick = "deleteBtn('${allList[i].id}')">delete</button>
     </div>
 </div>`;
    }else{
     resultHTML+= `<div class="tasks">
-    <div>${taskList[i].taskValue}</div>
+    <div>${allList[i].taskValue}</div>
     <div>
-        <button onclick = "checkBtn('${taskList[i].id}')">check</button>
-        <button onclick = "deleteBtn('${taskList[i].id}')">delete</button>
+        <button onclick = "checkBtn('${allList[i].id}')">check</button>
+        <button onclick = "deleteBtn('${allList[i].id}')">delete</button>
     </div>
 </div>`;
    }
@@ -210,13 +224,27 @@ function filter(event){
                 if(taskList[i].isComplete == false){
                     filterList.push(taskList[i])
                 }
+
             }
+            render()
+        }else if(mode == "not-done"){
+            for(let i=0;i<taskList.length;i++){
+                if(taskList[i].isComplete == true){
+                    filterList.push(taskList[i])
+                }
+            }
+            render()
         }
 
 }
 
 
+function tabsLineEvent(e) {
+   underBar.style.left =  e.currentTarget.offsetLeft + "px";
+   underBar.style.width = e.currentTarget.offsetWidth + "px";
+   underBar.style.top =  e.currentTarget.offsetTop + e.currentTarget.offsetHeight + "px";
 
+}
 
 
 
