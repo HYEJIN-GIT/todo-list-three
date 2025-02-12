@@ -131,8 +131,15 @@
 let inputValue = document.getElementById("input-value")
 let plusBtn = document.getElementById("plus-btn")
 let taskList = []
+let mode = "all"
+let filterList = []
+let tabs = document.querySelectorAll(".tabs div")
 
 plusBtn.addEventListener("click",plusCheck)
+
+for(let i=1;i<tabs.length;i++){
+    tabs[i].addEventListener("click",function (event){filter(event)})
+}
 
 function plusCheck(){
     let taskValue = inputValue.value 
@@ -190,6 +197,27 @@ function deleteBtn(id){
     }
     render()
 }
+
+function filter(event){
+    mode = event.target.id
+    filterList = []
+
+   
+        if(mode == "all"){
+            render()
+        }else if(mode == "done"){
+            for(let i=0;i<taskList.length;i++){
+                if(taskList[i].isComplete == false){
+                    filterList.push(taskList[i])
+                }
+            }
+        }
+
+}
+
+
+
+
 
 
 function generateId(){
