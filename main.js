@@ -155,7 +155,7 @@ function render(){
     <div class = "check-line">${taskList[i].taskValue}</div>
     <div>
         <button onclick = "checkBtn('${taskList[i].id}')">check</button>
-        <button>delete</button>
+        <button onclick = "deleteBtn('${taskList[i].id}')">delete</button>
     </div>
 </div>`;
    }else{
@@ -163,7 +163,7 @@ function render(){
     <div>${taskList[i].taskValue}</div>
     <div>
         <button onclick = "checkBtn('${taskList[i].id}')">check</button>
-        <button>delete</button>
+        <button onclick = "deleteBtn('${taskList[i].id}')">delete</button>
     </div>
 </div>`;
    }
@@ -181,6 +181,16 @@ for(let i=0;i<taskList.length;i++){
 }
 render()
 }
+
+function deleteBtn(id){
+    for(let i=0;i<taskList.length;i++){
+        if(taskList[i].id == id){
+           taskList.splice(i,1)
+        }
+    }
+    render()
+}
+
 
 function generateId(){
     return '_' + Math.random().toString(36).substring(2);
